@@ -25,7 +25,7 @@ export function Navigation() {
   }, [open]);
 
   return (
-    <nav className="fixed left-2 lg:left-[200px] top-5 z-[100] w-full bg-transparent px-0 py-5 transition-all duration-300">
+    <nav className="fixed left-0 top-0 z-[100] w-full bg-transparent px-0 py-5 transition-all duration-300">
       <div className="relative z-[1] mx-auto flex max-w-[1400px] items-center justify-between px-12 md:px-6 sm:px-1.5">
         <div className="flex cursor-pointer items-baseline gap-0.5 text-[1.75rem] font-extrabold tracking-[-0.5px] transition-transform duration-300 hover:scale-105 md:text-2xl sm:text-xl">
           <span className="text-white">Finzarc</span>
@@ -45,41 +45,64 @@ export function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile Menu Toggle */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <button
-            type="button"
-            className="lg:hidden bg-white/5 border border-white/15 text-white/90 hover:text-white hover:bg-white/10 hover:border-white/25 rounded-md p-2 transition-all duration-300 flex items-center justify-center min-w-[40px] -ml-4 sm:-ml-2"
-            onClick={() => setOpen(true)}
-            aria-label="Toggle menu"
-          >
-            <MenuToggle
-              strokeWidth={2.5}
-              open={open}
-              onOpenChange={() => { }} // Controlled by Sheet
-              className="size-6 pointer-events-none"
-              stroke="currentColor"
-            />
-          </button>
-          <SheetContent
-            className="bg-gradient-to-br from-[#1a102b] via-[#241047] to-[#361a5f] gap-0 backdrop-blur-xl border-white/10 w-[280px]"
-            showClose={false}
-            side="right"
-          >
-            <div className="grid gap-y-5 overflow-y-auto px-6 pt-32 pb-10 mx-4 place-items-center text-center">
-              {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+        {/* Mobile Menu Toggle - Only visible on mobile */}
+        <div className="lg:hidden">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="bg-white/5 border border-white/15 text-white/90 hover:text-white hover:bg-white/10 hover:border-white/25 rounded-md p-2 transition-all duration-300 flex items-center justify-center min-w-[40px] -ml-4 sm:-ml-2"
+              aria-label="Toggle menu"
+            >
+              <MenuToggle
+                strokeWidth={2.5}
+                open={open}
+                onOpenChange={() => { }}
+                className="size-6 pointer-events-none"
+                stroke="currentColor"
+              />
+            </button>
+            <SheetContent
+              className="bg-gradient-to-br from-[#1a102b] via-[#241047] to-[#361a5f] gap-0 backdrop-blur-xl border-white/10 w-[280px] lg:hidden"
+              showClose={false}
+              side="right"
+            >
+              {/* Mobile Menu Header - Name and Close Button in corners */}
+              <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
+                <div className="flex cursor-pointer items-baseline gap-0.5 text-[1.75rem] font-extrabold tracking-[-0.5px] transition-transform duration-300 hover:scale-105">
+                  <span className="text-white">Finzarc</span>
+                </div>
+                <button
+                  type="button"
                   onClick={() => setOpen(false)}
-                  className="relative px-0 py-3 text-base font-medium tracking-[0.3px] text-white/90 no-underline transition-all duration-300 hover:text-white before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0 before:bg-indigo-400 before:transition-[width] before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)] hover:before:w-full"
+                  className="bg-white/5 border border-white/15 text-white/90 hover:text-white hover:bg-white/10 hover:border-white/25 rounded-md p-2 transition-all duration-300 flex items-center justify-center min-w-[40px]"
+                  aria-label="Close menu"
                 >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </SheetContent>
-        </Sheet>
+                  <MenuToggle
+                    strokeWidth={2.5}
+                    open={open}
+                    onOpenChange={() => { }}
+                    className="size-6 pointer-events-none"
+                    stroke="currentColor"
+                  />
+                </button>
+              </div>
+              {/* Mobile Menu Links */}
+              <div className="grid gap-y-5 overflow-y-auto px-6 pt-8 pb-10 mx-4 place-items-center text-center">
+                {links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="relative px-0 py-3 text-base font-medium tracking-[0.3px] text-white/90 no-underline transition-all duration-300 hover:text-white before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0 before:bg-indigo-400 before:transition-[width] before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)] hover:before:w-full"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </nav>
   );
