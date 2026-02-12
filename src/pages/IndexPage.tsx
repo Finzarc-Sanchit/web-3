@@ -14,10 +14,10 @@ export function IndexPage() {
     <div data-scroll-container>
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
       {!showPreloader && (
-        <>
-          <Navigation />
+    <>
+      <Navigation />
           <Hero />
-        </>
+    </>
       )}
     </div>
   );
